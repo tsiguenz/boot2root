@@ -33,7 +33,7 @@ function create_vm {
 	if ! VBoxManage list hostonlyifs | grep vboxnet0 2>/dev/null; then
 		echo "Hostonly interface vboxnet0 does not exist."
 		echo "Creating interface vboxnet0..."
-		vboxmanage hostonlyif create 2>/dev/null
+		vboxmanage hostonlyif create --dhcp 2>/dev/null
 	fi
 	vboxmanage modifyvm $VM_NAME --nic1 hostonly --hostonlyadapter1 vboxnet0
 	# Nat with portforwarding
