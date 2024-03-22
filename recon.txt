@@ -1,0 +1,47 @@
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-22 18:23 GMT
+Nmap scan report for 192.168.56.101
+Host is up (0.00053s latency).
+Not shown: 65529 closed tcp ports (reset)
+PORT    STATE SERVICE    VERSION
+21/tcp  open  ftp        vsftpd 2.0.8 or later
+|_ftp-anon: got code 500 "OOPS: vsftpd: refusing to run with writable root inside chroot()".
+22/tcp  open  ssh        OpenSSH 5.9p1 Debian 5ubuntu1.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   1024 07bf0220f08ac8481efc41aea446fa25 (DSA)
+|   2048 26dd80a3dfc44b531e534246ef6e30b2 (RSA)
+|_  256 cfc38c31d7477c84e2d21631b28e63a7 (ECDSA)
+80/tcp  open  http       Apache httpd 2.2.22 ((Ubuntu))
+|_http-title: Hack me if you can
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+143/tcp open  imap       Dovecot imapd
+|_imap-capabilities: IDLE more ID have LOGINDISABLEDA0001 IMAP4rev1 listed capabilities Pre-login OK post-login LITERAL+ LOGIN-REFERRALS ENABLE STARTTLS SASL-IR
+|_ssl-date: 2024-03-22T18:23:50+00:00; -1s from scanner time.
+443/tcp open  ssl/http   Apache httpd 2.2.22
+|_http-title: 404 Not Found
+|_ssl-date: 2024-03-22T18:23:50+00:00; -1s from scanner time.
+| ssl-cert: Subject: commonName=BornToSec
+| Not valid before: 2015-10-08T00:19:46
+|_Not valid after:  2025-10-05T00:19:46
+|_http-server-header: Apache/2.2.22 (Ubuntu)
+993/tcp open  ssl/imaps?
+|_ssl-date: 2024-03-22T18:23:50+00:00; -1s from scanner time.
+| ssl-cert: Subject: commonName=localhost/organizationName=Dovecot mail server
+| Not valid before: 2015-10-08T20:57:30
+|_Not valid after:  2025-10-07T20:57:30
+MAC Address: 08:00:27:FB:0B:38 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X
+OS CPE: cpe:/o:linux:linux_kernel:3.2
+OS details: Linux 3.2, Linux 3.2 - 3.16
+Network Distance: 1 hop
+Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -1s, deviation: 0s, median: -1s
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.53 ms 192.168.56.101
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 27.86 seconds
