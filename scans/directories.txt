@@ -1,0 +1,23 @@
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     https://BornToSec/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirb/big.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+[2K/cgi-bin/             (Status: 403) [Size: 286]
+[2K/forum                (Status: 301) [Size: 308] [--> https://borntosec/forum/]
+[2K/phpmyadmin           (Status: 301) [Size: 313] [--> https://borntosec/phpmyadmin/]
+[2K/server-status        (Status: 403) [Size: 291]
+[2K/webmail              (Status: 301) [Size: 310] [--> https://borntosec/webmail/]
+
+===============================================================
+Finished
+===============================================================
