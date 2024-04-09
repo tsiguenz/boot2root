@@ -22,7 +22,7 @@ set_vm_ip() {
 	write_variable_value_in_file BOOT2ROOT_IP "$BOOT2ROOT_IP" "$PWD/$(basename "$0")"
 }
 
-BOOT2ROOT_IP=192.168.56.18
+BOOT2ROOT_IP=
 
 if [ -z "$BOOT2ROOT_IP" ]; then
 	print_info "\$BOOT2ROOT_IP is not set."
