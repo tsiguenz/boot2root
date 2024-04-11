@@ -4,6 +4,8 @@ set -eu
 
 source "$(dirname "$0")"/utils.sh
 
+BOOT2ROOT_IP=
+
 set_vm_ip() {
 	local network
 	local my_ip
@@ -19,14 +21,17 @@ set_vm_ip() {
 		print_error "List of candidate: \n$BOOT2ROOT_IP"
 		exit 1
 	fi
-	write_variable_value_in_file BOOT2ROOT_IP "$BOOT2ROOT_IP" "$PWD/$(basename "$0")"
+	write_variable_value_in_file BOOT2ROOT_IP "$BOOT2ROOT_IP" "$PWD/$(dirname "$0")/$(basename "$0")"
 }
-
-BOOT2ROOT_IP=
 
 if [ -z "$BOOT2ROOT_IP" ]; then
 	print_info "\$BOOT2ROOT_IP is not set."
 	set_vm_ip
 fi
 
-print_info "\$BOOT2ROOT_IP is set to: $BOOT2ROOT_IP"
+if ! ping -c 1 "$BOOT2ROOT_IP" &>/dev/null; then
+	print_info "\$BOOT2ROOT_IP is not reachable."
+	set_vm_ip
+fi
+
+print_info "\$BOOT2ROOT_IP is: $BOOT2ROOT_IP"

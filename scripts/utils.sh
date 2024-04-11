@@ -23,5 +23,5 @@ write_variable_value_in_file() {
 	filename="$3"
 
 	print_info "Writing value: $value in variable: $variable_name in file: $filename..."
-	sed -i "s/^\(${variable_name}\=\)$/\1${value}/" "$filename"
+	sed -i "s/^\(${variable_name}\=\).*$/\1${value}/" "$filename"
 }

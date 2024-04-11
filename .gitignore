@@ -1,1 +1,3 @@
-scripts/script.sh
+*.swp
+*.nfs*
+script.sh
