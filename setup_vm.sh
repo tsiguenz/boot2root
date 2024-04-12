@@ -6,8 +6,8 @@ VM_NAME="boot2root"
 VM_MEMORY=4096
 VM_STORAGE=8000
 VM_CPUS=4
-VM_ISO="/mnt/nfs/homes/tsiguenz/sgoinfre/BornToSecHackMe-v1.1.iso"
-VM_DISK="/mnt/nfs/homes/tsiguenz/sgoinfre/${VM_NAME}/${VM_NAME}_disk.vdi"
+VM_ISO="/mnt/nfs/homes/$USER/sgoinfre/BornToSecHackMe-v1.1.iso"
+VM_DISK="/mnt/nfs/homes/$USER/sgoinfre/${VM_NAME}/${VM_NAME}_disk.vdi"
 
 function delete_vm {
 	if ! vboxmanage list vms | grep -q $VM_NAME; then
