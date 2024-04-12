@@ -63,11 +63,26 @@
 
 // giants
 
+String.prototype.fuckSubject = function () {
+    if (this.length < 2) {
+        return this;
+    }
+    const charArray = this.split('');
+
+    const secondLastIndex = charArray.length - 2;
+    const thirdLastIndex = secondLastIndex - 1;
+
+    const temp = charArray[thirdLastIndex];
+    charArray[thirdLastIndex] = charArray[secondLastIndex];
+    charArray[secondLastIndex] = temp;
+
+    return charArray.join('');
+}
 
 const giantsIndex = [/*15,*/ 0, 5, 11, 13, 1]
 function generateWords(arrays, prefix = '', index = 0, result = []) {
     if (index === arrays.length) {
-        result.push('o'+prefix)
+        result.push('o' + prefix)
         return;
     }
 
@@ -75,7 +90,7 @@ function generateWords(arrays, prefix = '', index = 0, result = []) {
     return result
 }
 
-const start = 'A'.charCodeAt(0), end = 'z'.charCodeAt(0)
+const start = 'a'.charCodeAt(0), end = 'z'.charCodeAt(0)
 const words = ["1b214"/*, "2b755", "7b524"*/].map(pass3 => {
     let a = []
     let allPossibleChar = giantsIndex.map(c => {
@@ -87,7 +102,7 @@ const words = ["1b214"/*, "2b755", "7b524"*/].map(pass3 => {
         return allPossibleChar
     })
     let myGiantsWord = generateWords(allPossibleChar)
-    return myGiantsWord.map(word => ((`Public speaking is very easy.1 2 6 24 120 720${pass3}9${word}4 2 6 3 1 5`).replace(/ /g, '')))
+    return myGiantsWord.map(word => ((`Public speaking is very easy.  1 2 6 24 120 720  ${pass3}  9  ${word}  4 2 6 3 1 5`).replace(/ /g, '')).fuckSubject())
 }).flat()
 
 words.forEach(word=>console.log(word))
