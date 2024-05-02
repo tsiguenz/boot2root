@@ -4,10 +4,11 @@ After establishing an SSH connection to Laurie's system, we explored methods to 
 
 Before initiating the exploit, it's crucial to determine if the server is vulnerable. Firstly, we identify the kernel version by executing:
 
-shell
+```shell
 
 ~$ uname -r
 3.2.0-91-generic-pae
+```
 
 Next, we search for exploits targeting this version on [Exploit-DB](https://www.exploit-db.com). We discover an exploit named Dirty Cow (Copy-On-Write), which allows us to write any file and bypass Linux's permission system.
 
