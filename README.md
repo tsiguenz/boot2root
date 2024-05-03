@@ -1,9 +1,14 @@
 # boot2root
 Search for various means to pass root on the ISO given to you (42 project)
 
+## Table of Contents
+Mandatory part:
+ - [Following the main puzzle](./mandatory/writeup1/README.md)
+ - [Via Linux Exploit (Dirty Cow)](./mandatory/writeup2/README.md)
+
 ## Get IP address of the VM
 
-Many options exist to [get](https://www.baeldung.com/linux/lan-ip-addresses) the IP address of the machine.  
+Many options exist to [get](https://www.baeldung.com/linux/lan-ip-addresses) the IP address of the machine.
 We have create a [script](get_ip.sh) to obtain it.
 
 ## Intelligence gathering
