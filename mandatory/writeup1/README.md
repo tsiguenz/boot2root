@@ -212,6 +212,15 @@ Congratulations! You've defused the bomb!
 
 Because have a lot of possibilities of password for the user thor. We have write a [script](thor_password.js) to create a list of passwords and try them all.
 
+The password working is: `Publicspeakingisveryeasy.126241207201b2149opekmq426135`
+
+```bash
+laurie@BornToSecHackMe:~$ su thor
+Password:
+thor@BornToSecHackMe:~$ id
+uid=1004(thor) gid=1004(thor) groups=1004(thor)
+```
+
 ## Thor user - THE MOVING TURTLE
 
 In the thor home directory we can find a readme and a file named turtle.

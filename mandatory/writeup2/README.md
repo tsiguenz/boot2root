@@ -1,7 +1,7 @@
 # The Second Way to Gain Root Access
 
 After establishing an SSH connection to Laurie's system, we explored methods to obtain root access.  
-One approach involves following the treasure hunt solution planned in the project, while another utilizes a Linux kernel exploit known as DirtyCow. 
+One approach involves following the treasure hunt solution planned in the project, while another utilizes a Linux kernel exploit known as DirtyCow.
 In this writeup, we will elaborate on the latter method.
 
 Before initiating the exploit, it's crucial to determine if the server is vulnerable. Firstly, we identify the kernel version by executing:
@@ -17,7 +17,7 @@ Many C programs are available for exploiting Dirty Cow. We have opted to use one
 
 After compiling and executing the program, we can switch to the new user and verify that we now have root access.
 
-```
+```bash
 laurie@BornToSecHackMe:~$ su firefart
 Password: 
 firefart@BornToSecHackMe:/home/laurie# id
