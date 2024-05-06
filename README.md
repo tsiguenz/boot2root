@@ -1,10 +1,20 @@
 # boot2root
+
 Search for various means to pass root on the ISO given to you (42 project)
 
 ## Table of Contents
+
 Mandatory part:
- - [Following the main puzzle](./mandatory/writeup1/README.md)
- - [Via Linux Exploit (Dirty Cow)](./mandatory/writeup2/README.md)
+
+- [Following the main puzzle](./mandatory/writeup1/README.md)
+- [Via Linux Exploit (Dirty Cow)](./mandatory/writeup2/README.md)
+
+Bonus part:
+
+- [Binary exploitation using ret2libc](./bonus/ret2libc.md)
+- [Shellcode with environment variable](./bonus/shellcode_by_env.md)
+- [Exploit suExec](./bonus/suExec.md)
+- [Reverse shell from phpmyadmin](./bonus/reverse_shell.md)
 
 ## Get IP address of the VM
 

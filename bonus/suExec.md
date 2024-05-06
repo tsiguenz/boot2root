@@ -29,4 +29,4 @@ After executing the query, we need to execute the PHP, so we're going to the fol
 
 ## Step 3: Access the / directory
 
-After executing the symlink, we can access the / directory by visiting the following URL in the browser:` https://BornToSecHackMe/forum/templates_c/symlink.php/`. This will display the contents of the / directory and allow us to access any file.
+After executing the symlink, we can access the / directory by visiting the following URL in the browser: `https://BornToSecHackMe/forum/templates_c/symlink.php/`. This will display the contents of the / directory and allow us to access any file.

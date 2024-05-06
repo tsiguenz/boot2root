@@ -66,10 +66,10 @@ The offset is 140. We can exploit now.
 
 With the previous informations we can compose our exploit:
 
-1- fill up to the offset of saved eip with some chars
-2- write the address of `system`
-3- write return address of system (we don't return but we need to fill it)
-4- write the address of `/bin/sh`
+1. fill up to the offset of saved eip with some chars
+2. write the address of `system`
+3. write return address of system (we don't return but we need to fill it)
+4. write the address of `/bin/sh`
 
 We get this:
 

