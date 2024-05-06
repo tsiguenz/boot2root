@@ -317,7 +317,7 @@ $2 = 140
 
 The offset is 140. We can exploit now.
 
-We use a shellcode because the stack is executable:
+We use a [shellcode](https://shell-storm.org/shellcode/files/shellcode-811.html) because the stack is executable:
 
 ```bash
 zaz@BornToSecHackMe:~$ readelf -l exploit_me | grep GNU_STACK
